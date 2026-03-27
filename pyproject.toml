@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "x1201-ups-exporter"
+version = "0.1.0"
+description = "Prometheus exporter for Suptronics X1201/X1202 UPS HAT (MAX17040 fuel gauge)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["prometheus", "exporter", "raspberry-pi", "ups", "battery", "monitoring", "max17040"]
+classifiers = [
+    "Intended Audience :: System Administrators",
+    "Topic :: System :: Monitoring",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "prometheus-client>=0.19",
+    "smbus2>=0.4",
+]
+
+[project.optional-dependencies]
+gpio = ["gpiod>=2.0"]
+
+[project.scripts]
+x1201-exporter = "x1201_exporter:main"
+
+[project.urls]
+Homepage = "https://github.com/deaddawg/x1201-ups-exporter"
+Issues = "https://github.com/deaddawg/x1201-ups-exporter/issues"

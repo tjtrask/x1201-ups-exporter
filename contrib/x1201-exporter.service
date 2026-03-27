@@ -1,0 +1,16 @@
+[Unit]
+Description=Suptronics X1201 UPS Prometheus Exporter
+After=network.target
+
+[Service]
+Type=simple
+# Runs as root for I2C + GPIO access. If you configure udev rules
+# granting i2c/gpio group access, change to User=prometheus or similar.
+User=root
+ExecStart=/usr/local/bin/x1201_exporter.py
+Restart=always
+RestartSec=10
+Environment=X1201_PORT=9121
+
+[Install]
+WantedBy=multi-user.target
