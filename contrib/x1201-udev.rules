@@ -1,0 +1,14 @@
+# Udev rules for x1201-ups-exporter
+# Grants the 'x1201-exporter' group access to I2C and GPIO devices.
+#
+# Install: sudo cp contrib/x1201-udev.rules /etc/udev/rules.d/99-x1201-exporter.rules
+#          sudo udevadm control --reload-rules && sudo udevadm trigger
+#
+# On Raspbian, the i2c and gpio groups already have access — these rules
+# are for other distros (Ubuntu, Debian server) where they may not.
+
+# I2C bus (MAX17040 fuel gauge)
+SUBSYSTEM=="i2c-dev", GROUP="x1201-exporter", MODE="0660"
+
+# GPIO chip (AC power detection, charging status)
+SUBSYSTEM=="gpio", KERNEL=="gpiochip[0-9]*", GROUP="x1201-exporter", MODE="0660"

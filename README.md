@@ -38,6 +38,16 @@ python3 x1201_exporter.py
 ```bash
 git clone https://github.com/deaddawg/x1201-ups-exporter.git
 cd x1201-ups-exporter
+
+# Create a dedicated service user (no login, no home)
+sudo useradd -r -s /usr/sbin/nologin x1201-exporter
+
+# On Raspbian, the i2c and gpio groups already exist and grant device access.
+# On other distros, install the udev rules to create group-based access:
+#   sudo cp contrib/x1201-udev.rules /etc/udev/rules.d/99-x1201-exporter.rules
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+
+# Install
 sudo cp x1201_exporter.py /usr/local/bin/
 sudo chmod +x /usr/local/bin/x1201_exporter.py
 sudo cp contrib/x1201-exporter.service /etc/systemd/system/
@@ -111,7 +121,7 @@ The dashboard uses a `DS_PROMETHEUS` datasource variable — Grafana will prompt
 
 Uses the [`prometheus_client`](https://github.com/prometheus/client_python) library with a [custom collector](https://prometheus.github.io/client_python/collector/custom/). The `collect()` method is called on each Prometheus scrape — no background polling thread, no stale data.
 
-The exporter runs as root because I2C (`/dev/i2c-1`) and GPIO (`/dev/gpiochip0`) require elevated access. On systems with appropriate udev rules granting group access (`i2c`, `gpio`), a non-root user may work.
+The exporter runs as a dedicated `x1201-exporter` service user with `i2c` and `gpio` supplementary groups for device access. On Raspbian, these groups have access to `/dev/i2c-*` and `/dev/gpiochip*` by default. On other distros, install the included udev rules (`contrib/x1201-udev.rules`).
 
 If `python3-libgpiod` is not installed, the exporter runs without GPIO metrics — AC power and charging status are omitted, but all I2C metrics (voltage, SOC, fuel gauge registers) still work.
 

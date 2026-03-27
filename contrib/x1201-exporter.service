@@ -4,13 +4,19 @@ After=network.target
 
 [Service]
 Type=simple
-# Runs as root for I2C + GPIO access. If you configure udev rules
-# granting i2c/gpio group access, change to User=prometheus or similar.
-User=root
+User=x1201-exporter
+Group=x1201-exporter
+SupplementaryGroups=i2c gpio
 ExecStart=/usr/local/bin/x1201_exporter.py
 Restart=always
 RestartSec=10
 Environment=X1201_PORT=9121
+
+# Hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
 
 [Install]
 WantedBy=multi-user.target
