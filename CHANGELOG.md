@@ -14,5 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Prometheus metrics endpoint via `prometheus_client` custom collector
 - CLI args and environment variable configuration
 - Graceful degradation when `gpiod` is not installed (GPIO metrics skipped)
-- Systemd service file in `contrib/`
+- Grafana dashboard (`grafana/x1201-ups-dashboard.json`)
+- Systemd service file (`contrib/x1201-exporter.service`)
 - Dockerfile for containerized deployment

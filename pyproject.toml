@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -23,9 +23,6 @@ dependencies = [
 
 [project.optional-dependencies]
 gpio = ["gpiod>=2.0"]
-
-[project.scripts]
-x1201-exporter = "x1201_exporter:main"
 
 [project.urls]
 Homepage = "https://github.com/deaddawg/x1201-ups-exporter"
