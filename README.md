@@ -36,7 +36,7 @@ python3 x1201_exporter.py
 ## Installation
 
 ```bash
-git clone https://github.com/deaddawg/x1201-ups-exporter.git
+git clone https://github.com/tjtrask/x1201-ups-exporter.git
 cd x1201-ups-exporter
 
 # Create a dedicated service user (no login, no home)
